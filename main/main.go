@@ -1,13 +1,27 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/deoooo/gin_demo/pkg/setting"
+	"github.com/deoooo/gin_demo/routers"
+	"net/http"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "hello world",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r := routers.InitRouter()
+
+	s := &http.Server{
+		Addr:           fmt.Sprintf("127.0.0.1:%d", setting.HTTPPort),
+		Handler:        r,
+		ReadTimeout:    setting.ReadTimeout,
+		WriteTimeout:   setting.WriteTimeout,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	e := s.ListenAndServe()
+	if e != nil {
+		fmt.Printf("Listen Error %v", e)
+	} else {
+		fmt.Printf("Listen on port:%d", setting.HTTPPort)
+	}
 }
