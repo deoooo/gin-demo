@@ -17,10 +17,15 @@ func InitRouter() *gin.Engine {
 	gin.SetMode(setting.RunMode)
 
 	apiV1 := r.Group("/api/v1")
-	apiV1.Use(jwt.JWT())
 	{
 		// 登陆接口
-		apiV1.GET("/login", v1.CheckPassword)
+		apiV1.GET("/login", v1.Login)
+	}
+
+	v1User := apiV1.Group("/user")
+	v1User.Use(jwt.JWT())
+	{
+		v1User.GET("/hello", v1.Hello)
 	}
 
 	return r

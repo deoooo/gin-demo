@@ -16,13 +16,14 @@ func JWT() gin.HandlerFunc {
 		code = e.SUCCESS
 		token := c.Query("token")
 		if token == "" {
-			code = e.INVALID_PARAMS
+			code = e.InvalidParams
 		} else {
 			claims, err := util.ParseToken(token)
+			c.Set("userId", claims.UserId)
 			if err != nil {
-				code = e.NEED_AUTH
+				code = e.AuthFail
 			} else if time.Now().Unix() > claims.ExpiresAt {
-				code = e.NEED_AUTH
+				code = e.NeedAuth
 			}
 		}
 
