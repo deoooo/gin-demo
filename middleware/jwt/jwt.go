@@ -16,7 +16,7 @@ func JWT() gin.HandlerFunc {
 		code = e.SUCCESS
 		token := c.Query("token")
 		if token == "" {
-			code = e.InvalidParams
+			code = e.INVALID_PARAMS
 		} else {
 			claims, err := util.ParseToken(token)
 			c.Set("userId", claims.UserId)
