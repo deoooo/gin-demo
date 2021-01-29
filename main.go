@@ -2,26 +2,34 @@ package main
 
 import (
 	"fmt"
+	"github.com/deoooo/gin_demo/models"
 	"github.com/deoooo/gin_demo/pkg/setting"
 	"github.com/deoooo/gin_demo/routers"
+	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
 func main() {
+	setting.Setup()
+	models.Setup()
+
+	gin.SetMode(setting.ServerSetting.RunMode)
 	r := routers.InitRouter()
+	readTimeout := setting.ServerSetting.ReadTimeout
+	writeTimeout := setting.ServerSetting.WriteTimeout
+	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
+	maxHeaderBytes := 1 << 20
 
 	s := &http.Server{
-		Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+		Addr:           endPoint,
 		Handler:        r,
-		ReadTimeout:    setting.ReadTimeout,
-		WriteTimeout:   setting.WriteTimeout,
-		MaxHeaderBytes: 1 << 20,
+		ReadTimeout:    readTimeout,
+		WriteTimeout:   writeTimeout,
+		MaxHeaderBytes: maxHeaderBytes,
 	}
 
-	e := s.ListenAndServe()
-	if e != nil {
-		fmt.Printf("Listen Error %v", e)
-	} else {
-		fmt.Printf("Listen on port:%d", setting.HTTPPort)
-	}
+	log.Printf("[info] start http server listening %s", endPoint)
+
+	s.ListenAndServe()
 }

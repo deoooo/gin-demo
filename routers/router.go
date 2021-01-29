@@ -3,11 +3,13 @@ package routers
 import (
 	_ "github.com/deoooo/gin_demo/docs"
 	"github.com/deoooo/gin_demo/middleware/jwt"
-	"github.com/deoooo/gin_demo/pkg/setting"
-	v1 "github.com/deoooo/gin_demo/routers/v1"
+	"github.com/deoooo/gin_demo/pkg/upload"
+	"github.com/deoooo/gin_demo/routers/api"
+	v1 "github.com/deoooo/gin_demo/routers/api/v1"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"net/http"
 )
 
 func InitRouter() *gin.Engine {
@@ -17,10 +19,10 @@ func InitRouter() *gin.Engine {
 
 	r.Use(gin.Recovery())
 
-	gin.SetMode(setting.RunMode)
-
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	r.POST("/upload", api.UploadImage)
 	apiV1 := r.Group("/api/v1")
 	{
 		// 登陆接口
