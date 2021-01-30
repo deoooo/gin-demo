@@ -23,6 +23,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.POST("/upload", api.UploadImage)
+	r.POST("/excel/export", api.Export)
 	apiV1 := r.Group("/api/v1")
 	{
 		// 登陆接口
