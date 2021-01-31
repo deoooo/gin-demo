@@ -106,7 +106,22 @@ func (p *PosterBg) Generate() (string, string, error) {
 		draw.Draw(jpg, jpg.Bounds(), bgImage, bgImage.Bounds().Min, draw.Over)
 		draw.Draw(jpg, jpg.Bounds(), qrImage, qrImage.Bounds().Min.Sub(image.Pt(p.Pt.X, p.Pt.Y)), draw.Over)
 
-		jpeg.Encode(mergedF, jpg, nil)
+		err = p.DrawPoster(&DrawText{
+			JPG:    jpg,
+			Merged: mergedF,
+			Title:  "Golang Gin 系列文章",
+			X0:     80,
+			Y0:     160,
+			Size0:  42,
+
+			SubTitle: "----Deo",
+			X1:       320,
+			Y1:       220,
+			Size1:    36,
+		}, "msyhbd.ttc")
+		if err != nil {
+			return "", "", err
+		}
 	}
 	return fileName, fullPath, nil
 }

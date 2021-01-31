@@ -10,6 +10,7 @@ require (
 	github.com/go-ini/ini v1.62.0
 	github.com/go-openapi/spec v0.20.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
+	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/jinzhu/gorm v1.9.16
 	github.com/json-iterator/go v1.1.10 // indirect
@@ -21,6 +22,7 @@ require (
 	github.com/ugorji/go v1.2.3 // indirect
 	github.com/unknwon/com v1.0.1
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
+	golang.org/x/image v0.0.0-20201208152932-35266b937fa6 // indirect
 	golang.org/x/net v0.0.0-20201224014010-6772e930b67b // indirect
 	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect
 	golang.org/x/text v0.3.5 // indirect
