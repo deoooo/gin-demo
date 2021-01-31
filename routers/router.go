@@ -25,6 +25,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/upload", api.UploadImage)
 	r.POST("/excel/export", api.Export)
 	r.POST("/qrcode", api.GenerateQrcode)
+	r.POST("/poster", api.GeneratePoster)
 	apiV1 := r.Group("/api/v1")
 	{
 		// 登陆接口
