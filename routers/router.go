@@ -33,13 +33,9 @@ func InitRouter() *gin.Engine {
 	}
 
 	v1User := apiV1.Group("/user")
-	v1User.Use(jwt.JWT())
 	{
-		v1User.GET("/hello", v1.Hello)
+		v1User.GET("/hello", jwt.JWT(), v1.Hello)
 	}
-
-	v1CallGroup := apiV1.Group("/call")
-	v1CallGroup.POST("/", v1.Call)
 
 	return r
 }
