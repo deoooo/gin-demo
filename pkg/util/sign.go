@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -17,15 +18,11 @@ func ValidSign(param map[string]interface{}) bool {
 	sort.Strings(keys)
 	signStr := ""
 	for index, k := range keys {
-		signStr += k + "=" + param[k].(string)
+		signStr += fmt.Sprintf("%s=%v", k, param[k])
 		if index != len(keys)-1 {
 			signStr += ","
 		}
 	}
 	sign, ok := param[signKey]
-	if ok && sign.(string) == EncodeMD5(signStr) {
-		return true
-	}
-
-	return false
+	return ok && sign.(string) == EncodeMD5(signStr)
 }
