@@ -1,7 +1,6 @@
 package routers
 
 import (
-	_ "github.com/deoooo/gin_demo/docs"
 	"github.com/deoooo/gin_demo/middleware/jwt"
 	"github.com/deoooo/gin_demo/pkg/upload"
 	"github.com/deoooo/gin_demo/routers/api"
