@@ -1,4 +1,4 @@
-FROM golang:latest as build
+FROM golang:1.19 as build
 ENV GOPROXY https://goproxy.cn,direct
 ENV GO111MODULE on
 WORKDIR /app

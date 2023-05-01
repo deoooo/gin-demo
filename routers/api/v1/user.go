@@ -9,10 +9,14 @@ import (
 )
 
 // @Summary 登陆
+// @Description 通过帐号密码登陆，获取token
+// @Tags Users
+// @Accept  json
 // @Produce  json
 // @Param username query string true "username"
 // @Param password query string true "password"
 // @Success 200 {string} json "{"code":200,"data":{"token"：""},"msg":"ok"}"
+// @Failure 400 {string} json "{"code":400,"data":{},"msg":"invalid params"}"
 // @Router /api/v1/login [get]
 func Login(c *gin.Context) {
 	username := c.Query("username")

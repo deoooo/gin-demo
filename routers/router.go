@@ -19,7 +19,10 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any",
+		gin.BasicAuth(gin.Accounts{"username": "password"}),
+		ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/health", api.Health)
 
 	r.POST("/upload", api.UploadImage)
 	r.POST("/excel/export", api.Export)

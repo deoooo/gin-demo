@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	_ "github.com/deoooo/gin_demo/docs"
 	"github.com/deoooo/gin_demo/models"
 	"github.com/deoooo/gin_demo/pkg/setting"
 	"github.com/deoooo/gin_demo/routers"
