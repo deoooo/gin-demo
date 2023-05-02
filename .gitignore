@@ -1,5 +1,8 @@
 vendor
 .idea
-docs
 runtime
 data
+makefile
+docker-compose.development.yml
+.gitignore
+gin-demo
