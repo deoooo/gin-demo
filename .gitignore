@@ -5,4 +5,3 @@ data
 makefile
 docker-compose.development.yml
 .gitignore
-gin-demo

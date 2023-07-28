@@ -28,11 +28,13 @@ func Setup() {
 	password := setting.DatabaseSetting.Password
 	host := setting.DatabaseSetting.Host
 
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	connUrl := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
 		host,
-		dbName))
+		dbName)
+	log.Println("connUrl:", connUrl)
+	db, err = gorm.Open(dbType, connUrl)
 
 	if err != nil {
 		log.Fatalf("model.Setup err:%v", err)
