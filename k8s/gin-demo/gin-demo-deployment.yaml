@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gin-demo-deployment
+  namespace: gin-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: git-demo
+  template:
+    metadata:
+      labels:
+        app: git-demo
+    spec:
+      containers:
+        - name: git-demo
+          image: aa864451000/gin_demo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+#          env:
+#            - name: MYSQL_HOST
+#              value: mysql-service<
+
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: gin-demo-service
+  namespace: gin-demo
+spec:
+    ports:
+        - port: 8000
+          targetPort: 8000
+          protocol: TCP
+          name: http
+    selector:
+        app: git-demo
+
+---
+# ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gin-demo-ingress
+  namespace: gin-demo
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+    rules:
+        - host: gin-demo.aa864451000.com
+          http:
+              paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                      service:
+                          name: gin-demo-service
+                          port:
+                              number: 8000
